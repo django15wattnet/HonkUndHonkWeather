@@ -1,0 +1,7 @@
+ - In /var/cache Ordner HonkUndHonkWeather erstellen
+ - Unterordner je Geolocation
+ - In Python Cron-Job erstellen, der die Vorhersagen je Geolocation von OpenMeteo ließt
+   - Die Geolocation-Ordner bestimmen für welche Location Daten erstellt werden müssen
+   - Vereinfachte JSON-Darstellung und HTML-Code, TABLE und DIVs in Divs erstellen und speichern
+ - WP-Plugin/Short-Code ließt HTML-Code für die Geolocation ein
+   - erstellt in /var/cache/HonkUndHonkWeather ein Verzeichnis mit der Geolocation, wenn noch nicht vorhanden
