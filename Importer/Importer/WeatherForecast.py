@@ -1,8 +1,9 @@
 from datetime import datetime, timezone
 from dateutil import tz
+from json import dumps
 
 
-class WeatherForecast(object):
+class WeatherForecast(dict):
 	lon: float
 	lat: float
 	dt: datetime
@@ -40,10 +41,29 @@ class WeatherForecast(object):
 		return wf
 	
 	
-	# def __str__(self) -> str:
-	# 	return (f"WeatherForecast(lat={self.lat}, lon={self.lon}, dt={self.dt.isoformat()}, "
-	# 			f"tz={self.tz}, temperature_2m={self.temperature_2m}, "
-	# 			f"relative_humidity_2m={self.relative_humidity_2m}, cloud_cover={self.cloud_cover}, "
-	# 			f"rain={self.rain}, weather_code={self.weather_code}, "
-	# 			f"wind_direction_10m={self.wind_direction_10m}, surface_pressure={self.surface_pressure}, "
-	# 			f"precipitation_probability={self.precipitation_probability})")
+	def toJson(self):
+		return "".join([
+			"{",
+			f'"lat": {self.lat}, ',
+			f'"lon": {self.lon}, ',
+			f'"time": "{self.dt.isoformat()}", ',
+			f'"tz": "{self.tz.tzname(self.dt)}", ',
+			f'"temperature_2m": {self.temperature_2m}, ',
+			f'"relative_humidity_2m": {self.relative_humidity_2m}, ',
+			f'"cloud_cover": {self.cloud_cover}, ',
+			f'"rain": {self.rain}, ',
+			f'"weather_code": {self.weather_code}, ',
+			f'"wind_direction_10m": {self.wind_direction_10m}, ',
+			f'"surface_pressure": {self.surface_pressure}, ',
+			f'"precipitation_probability": {self.precipitation_probability}',
+			"}"
+		])
+	
+	
+	def __str__(self) -> str:
+		return (f"WeatherForecast(lat={self.lat}, lon={self.lon}, dt={self.dt.isoformat()}, "
+				f"tz={self.tz}, temperature_2m={self.temperature_2m}, "
+				f"relative_humidity_2m={self.relative_humidity_2m}, cloud_cover={self.cloud_cover}, "
+				f"rain={self.rain}, weather_code={self.weather_code}, "
+				f"wind_direction_10m={self.wind_direction_10m}, surface_pressure={self.surface_pressure}, "
+				f"precipitation_probability={self.precipitation_probability})")
