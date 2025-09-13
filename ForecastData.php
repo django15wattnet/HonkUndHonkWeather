@@ -20,6 +20,8 @@
 class ForecastData
 {
     protected array $arrData = [
+        'lat'                       => null,
+        'lon'                       => null,
         'time'                      => null,
         'tz'                        => null,
         'temperature_2m'            => null,
@@ -33,7 +35,7 @@ class ForecastData
     ];
     
     
-    public function __construct(stdClass $data)
+    public function __construct(stdClass $data, public Units $units)
     {
         foreach (array_keys($this->arrData) as $key) {
             if (false === property_exists($data, $key)) {
@@ -42,6 +44,14 @@ class ForecastData
             
             $this->arrData[$key] = $data->$key;
         }
+        
+        $this->arrData['isDay'] = $this->getIsDay();
+    }
+    
+    
+    public function getPropertiesNames(): array
+    {
+        return array_keys($this->arrData);
     }
     
     
@@ -52,5 +62,18 @@ class ForecastData
         }
         
         return $this->arrData[$prop];
+    }
+    
+    
+    protected function getIsDay(): bool
+    {
+        $ts = (new DateTime($this->time))->getTimestamp();
+        $dsi = date_sun_info($ts, $this->lat, $this->lon);
+        
+        if (($ts >= $dsi['sunrise']) && ($ts <= $dsi['sunset'])) {
+            return true;
+        }
+        
+        return false;
     }
 }

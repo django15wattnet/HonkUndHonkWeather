@@ -89,8 +89,7 @@ class ShortCode
             throw new Exception("Can't parse forecast data: {$nameDataFile} -> {$e->getMessage()}.");
         }
         
-        $content = (new Renderer($dataForecast))->value;
-        return "<div class=\"honkWeatherOuter\">{$content}</div>";
+        return (new Renderer($dataForecast))->value;
     }
     
     

@@ -1,0 +1,30 @@
+.honkWeatherOuter .content {
+  display: flex;
+  flex-direction: row;
+}
+.honkWeatherOuter .content .direction {
+  font-size: 8rem;
+  cursor: pointer;
+}
+.honkWeatherOuter .content .direction:hover {
+  background-color: #f0f0f0;
+}
+.honkWeatherOuter .content .back::before {
+  content: "<";
+}
+.honkWeatherOuter .content .list {
+  position: relative;
+  display: inline-block;
+}
+.honkWeatherOuter .content .list .forecastOuter {
+  box-shadow: 6px 6px 15px 1px #000000;
+  padding: 0.5rem;
+}
+.honkWeatherOuter .content .list .forecastOuter div img {
+  vertical-align: middle;
+}
+.honkWeatherOuter .content .next::before {
+  content: ">";
+}
+
+/*# sourceMappingURL=styles.css.map */

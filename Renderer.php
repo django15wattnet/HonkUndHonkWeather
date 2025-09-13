@@ -4,8 +4,7 @@ class Renderer
 {
     readonly public string $value;
     protected Units $units;
-    protected array $arrForecastHtml = [];
-    
+    protected array $forecastRenderers = [];
     
     
     public function __construct($data)
@@ -18,16 +17,31 @@ class Renderer
             throw new Exception('Missing property units');
         }
         
-        $this->units = new Units($data->units);
+        $units = new Units($data->units);
         
-        $out = '';
+        // Vorhersagen neuer als jetzt plus 2 Stunden
+        $dtNowPlusTwo = new DateTime('now');
+        $dtNowPlusTwo->modify('+2 Hour');
         
-        foreach ($data->forecasts as $fc) {
-            $forecastData = new ForecastData($fc);
-            $out .= print_r($forecastData, true) . PHP_EOL;
-        }
+        $arrNewForecasts = array_filter(
+            $data->forecasts,
+            function(stdClass $data) use($dtNowPlusTwo): bool
+            {
+                return (new DateTime($data->time)) > $dtNowPlusTwo;
+            }
+        );
         
+        $idx = 0;
+        $this->forecastRenderers = array_map(
+            function(stdClass $data) use($units, &$idx) 
+            {
+                return new ForecastRenderer(new ForecastData($data, $units), $idx++);
+            },
+            $arrNewForecasts
+        );
         
-        $this->value = '<pre>' . $out . '</pre>';
+        ob_start();
+        include __dir__ . '/resources/templates/forecast.php';
+        $this->value = ob_get_clean();
     }
 }

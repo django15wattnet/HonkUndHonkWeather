@@ -9,3 +9,6 @@ from Importer.WeatherForecast import WeatherForecast
 wf = WeatherForecast()
 importer = Importer(point=Point(lat=51.961662, lon=7.643496))
 print(importer.saveJson())
+
+importer = Importer(point=Point(lat=50.43, lon=1.36))
+print(importer.saveJson())

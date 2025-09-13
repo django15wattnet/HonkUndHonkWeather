@@ -1,0 +1,52 @@
+.honkWeatherOuter {
+	
+	h2 {
+		
+	}
+	
+	.content {
+		display: flex;
+		flex-direction: row;
+		
+		.direction {
+			font-size: 8rem;
+			cursor: pointer;
+			
+			&:hover {
+				background-color: #f0f0f0;
+			}
+		}
+		
+		.back {
+			
+			&::before {
+				content: '<';
+			}
+		}
+		
+		.list {
+			position: relative;
+			display: inline-block;
+			
+			.forecastOuter {
+				box-shadow: 6px 6px 15px 1px #000000;
+				padding: 0.5rem;
+				
+				div {
+					// text-align: center;
+					
+					img {
+						vertical-align: middle;
+					}
+				}
+			}
+		}
+		
+		.next {
+			
+			&::before {
+				content: '>';
+			}
+		}
+	}
+}
