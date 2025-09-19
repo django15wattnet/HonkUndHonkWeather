@@ -1,10 +1,18 @@
 # HonkUndHonkWeather
 a Wordpress plugin to display weather information 
-from open-meteo.com for any location worldwide.
+from open-meteo.com for any location worldwide.  
+The forecast are updated every hour, by fetching data 
+from open-meteo.com API.
 
 ## Features
 - Display current weather conditions
 - Show a 7-day weather forecast
+
+## Requirements
+1. PHP >= 8.2
+2. Wordpress >= 6.0
+3. Python >= 3.0
+4. Unix-like operating system (Linux, MacOs, BSD, ...)
 
 ## Installation
 1. Download the plugin [zip file](https://github.com/django15wattnet/HonkUndHonkWeather/blob/main/honkUndHonkWeather.zip)
