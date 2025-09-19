@@ -209,7 +209,7 @@ __marimo__/
 # MacOs stuff
 .DS_Store
 
-.settings
+.settings/
 .idea
 .buildpath
 .project

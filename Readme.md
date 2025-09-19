@@ -18,5 +18,11 @@ Add a shortcode like this example to your post or page:
 This first release can display only one forecast per post or page.
 
 ## Screenshots
-1. ![Desktop](https://github.com/django15wattnet/HonkUndHonkWeather/blob/main/desktop.png)
-2. ![Mobile](https://github.com/django15wattnet/HonkUndHonkWeather/blob/main/mobile.png)
+![Desktop](https://github.com/django15wattnet/HonkUndHonkWeather/blob/main/desktop.png?raw=true)
+___
+![Mobile](https://github.com/django15wattnet/HonkUndHonkWeather/blob/main/mobile.png?raw=true)
+
+## ToDos
+- Localisation
+- Styling options
+- Use [Erik Flowers Weather Icons](https://erikflowers.github.io/weather-icons/)
