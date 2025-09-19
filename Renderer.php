@@ -3,11 +3,15 @@
 class Renderer
 {
     readonly public string $value;
-    protected Units $units;
-    protected array $forecastRenderers = [];
+    readonly protected Units $units;
+    readonly protected array $forecastRenderers;
+    readonly protected ForecastDaySlider $forecastDaySlider;
     
     
-    public function __construct($data)
+    public function __construct(readonly protected 
+        ShortCode $shortCode, 
+        stdClass $data
+    )
     {
         if (false === property_exists($data, 'units')) {
             throw new Exception('Missing property units');
@@ -19,15 +23,15 @@ class Renderer
         
         $units = new Units($data->units);
         
-        // Vorhersagen neuer als jetzt plus 2 Stunden
-        $dtNowPlusTwo = new DateTime('now');
-        $dtNowPlusTwo->modify('+2 Hour');
+        // Vorhersagen neuer als jetzt plus 1 Stunden
+        $dtNowPlusOne = new DateTime('now');
+        $dtNowPlusOne->modify('+1 Hour');
         
         $arrNewForecasts = array_filter(
             $data->forecasts,
-            function(stdClass $data) use($dtNowPlusTwo): bool
+            function(stdClass $data) use($dtNowPlusOne): bool
             {
-                return (new DateTime($data->time)) > $dtNowPlusTwo;
+                return (new DateTime($data->time)) > $dtNowPlusOne;
             }
         );
         
@@ -39,6 +43,8 @@ class Renderer
             },
             $arrNewForecasts
         );
+        
+        $this->forecastDaySlider = new ForecastDaySlider($this->forecastRenderers);
         
         ob_start();
         include __dir__ . '/resources/templates/forecast.php';

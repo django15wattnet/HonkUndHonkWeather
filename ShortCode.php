@@ -2,11 +2,10 @@
 
 class ShortCode
 {
-    public const string SAVE_PATH = '/var/cache/HonkUndHonkWeather/';
     readonly float  $lon;
     readonly float  $lat;
-    readonly string $type;
     readonly string $value;
+    readonly string $headline;
     
     
     public function __construct(array $params)
@@ -19,10 +18,6 @@ class ShortCode
         
         if (! isset($params['lat'])) {
             $arrError[] = 'Missing parameter lat';
-        }
-        
-        if (! isset($params['type'])) {
-            $arrError[] = 'Missing parameter type';
         }
         
         if (0 === count($arrError)) {
@@ -43,9 +38,14 @@ class ShortCode
             return;
         }
         
+        if (isset($params['headline'])) {
+            $this->headline = $params['headline'];
+        } else {
+            $this->headline = '';
+        }
+        
         $this->lon  = floatval($params['lon']);
         $this->lat  = floatval($params['lat']);
-        $this->type = $params['type'];
         
         try {
             $this->value = $this->getValue();
@@ -58,16 +58,15 @@ class ShortCode
     }
     
     
+    /**
+     * Not needed at this moment.
+     * 
+     * @param array $params
+     * @return array
+     */
     protected function checkParameters(array &$params)
     {
-        $arrAllowedTypes = ['json', 'htmlTable', 'htmlDiv'];
-        $arrErr          = [];
-        
-        if (false === in_array($params['type'], $arrAllowedTypes)) {
-            $arrErr['e3'] = 'Parameter type has invalid value';
-        }
-        
-        return $arrErr;
+        return [];
     }
     
     
@@ -76,11 +75,17 @@ class ShortCode
         $nameDataFile = $this->buildSavePath();
         
         if (! file_exists($nameDataFile)) {
+            
+            touch($nameDataFile);
             throw new Exception("Forecast data not read yet, please come back in about six houres.");
         }
         
         if (false === ($dataJson = file_get_contents($nameDataFile))) {
             throw new Exception("Can't read forecast data: {$nameDataFile}.");
+        }
+        
+        if ('' === $dataJson) {
+            throw new Exception("Forecast data not read yet, please come back in about six houres.");
         }
         
         try {
@@ -89,13 +94,13 @@ class ShortCode
             throw new Exception("Can't parse forecast data: {$nameDataFile} -> {$e->getMessage()}.");
         }
         
-        return (new Renderer($dataForecast))->value;
+        return (new Renderer($this, $dataForecast))->value;
     }
     
     
     protected function buildSavePath(): string
     {
-        return ShortCode::SAVE_PATH . $this->lon . '_' . $this->lat;
+        return __DIR__ . '/resources/data/' . $this->lon . '_' . $this->lat;
     }
 }
 

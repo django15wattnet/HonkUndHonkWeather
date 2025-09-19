@@ -22,15 +22,13 @@ if (!defined('ABSPATH')) {
 require_once 'Renderer.php';
 require_once 'ForecastRenderer.php';
 require_once 'ForecastData.php';
+require_once 'ForecastDaySlider.php';
 require_once 'ShortCode.php';
 require_once 'Units.php';
 require_once 'WmoCode.php';
 
-use ShortCode;
-
 
 add_shortcode('honkUndHonkWeather', 'honkUndHonkWeatherShortcodeHandler');
-
 
 function honkUndHonkWeatherShortcodeHandler(array $params)
 {
@@ -43,4 +41,48 @@ function honkUndHonkWeatherShortcodeHandler(array $params)
                 <div class=\"error\">{$e->getMessage()}</div>
             </div>";
     }
+}
+
+
+// Add wp cron to read the weather forecasts houly
+add_action(
+    'HonkUndHonkWeatherReadForecastsCron',
+    'honkUndHonkWeatherReadForecastsCronExec'
+);
+
+function activate()
+{
+    error_log("honkUndHonkWeatherReadForecasts activate");
+    wp_schedule_event(time(), 'hourly', 'HonkUndHonkWeatherReadForecastsCron');
+}
+
+function deactivate()
+{
+    error_log("honkUndHonkWeatherReadForecasts deactivate");
+    wp_clear_scheduled_hook('HonkUndHonkWeatherReadForecastsCron');
+}
+
+function honkUndHonkWeatherReadForecastsCronExec(): void
+{
+    $pythonInterpreter = `which python3`;
+    if (true === in_array($pythonInterpreter, [false, null], true)) {
+        error_log("honkUndHonkWeatherReadForecastsCronExec(): Can't find python3 interpreter");
+        return;
+    }
+    
+    $pythonInterpreter = trim($pythonInterpreter, "\n\r ");
+    
+    $pathToScript = dirname(__FILE__) . '/Importer/importer.py';
+    
+    error_log("{$pythonInterpreter} {$pathToScript}");
+    $res = shell_exec("{$pythonInterpreter} {$pathToScript}");
+    if (true === in_array($res, [false, null], true)) {
+        error_log("honkUndHonkWeatherReadForecastsCronExec(): Can't run importer");
+print('WTF');
+        return;
+    }
+    
+    error_log("honkUndHonkWeatherReadForecastsCronExec(): Success 🌞");
+    
+    return;
 }

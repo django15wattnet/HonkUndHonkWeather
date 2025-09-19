@@ -2,15 +2,16 @@
 
 class ForecastRenderer
 {
-    protected DateTime $dt;
+    readonly public DateTime $dt;
     protected WmoCode $wmoCode;
     
     
-    public function __construct(protected ForecastData $forecastData, protected int $idx)
+    public function __construct(
+        protected ForecastData $forecastData, 
+        readonly public int $idx)
     {
         $this->dt = (new DateTime($this->forecastData->time))->setTimezone(new DateTimeZone('Europe/Berlin'));
         $this->wmoCode = new WmoCode();
-        // print('<pre>'); print_r($this->forecastData); die();
     }
     
     

@@ -1,13 +1,15 @@
+from pathlib import Path
 from requests import get
 from Importer.Point import Point
 from Importer.WeatherForecast import WeatherForecast
 
 
 class Importer(object):
-	__uriTmpl  = 'https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m,rain,weather_code,wind_direction_10m,surface_pressure,precipitation_probability&models=best_match'
-	__dirCache = '/var/cache/HonkUndHonkWeather'
+	__uriTmpl = 'https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m,rain,weather_code,wind_direction_10m,surface_pressure,precipitation_probability&models=best_match'
 	
 	def __init__(self, point: Point):
+		self.__dirCache = str(Path(__file__).parent.absolute()) + '/../../resources/data'
+		self.__dirCache = str(Path(self.__dirCache).resolve())
 		self.__point = point
 		self.__openMeteoData = self.__readForecastData()
 		self.__strJson = ''

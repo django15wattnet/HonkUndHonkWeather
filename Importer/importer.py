@@ -1,14 +1,20 @@
 #!/usr/bin/python3
 
+from pathlib import Path
+from Importer.DirList import DirList
 from Importer.Importer import Importer
 from Importer.Point import Point
-from Importer.WeatherForecast import WeatherForecast
 
-# urlApi = 'https://api.open-meteo.com/v1/forecast?latitude=51.961662&longitude=7.643496&hourly=temperature_2m,relative_humidity_2m,rain,weather_code,wind_speed_10m,wind_direction_10m,cloud_cover,surface_pressure'
+dirCache = str(Path(__file__).absolute()) + '/../../resources/data'
+dirCache = str(Path(dirCache).resolve())
 
-wf = WeatherForecast()
-importer = Importer(point=Point(lat=51.961662, lon=7.643496))
-print(importer.saveJson())
-
-importer = Importer(point=Point(lat=50.43, lon=1.36))
-print(importer.saveJson())
+for nameFile in DirList(basePath=dirCache).dirList:
+	parts = nameFile.split('_')
+	point = Point(lat=float(parts[0]), lon=float(parts[1]))
+	
+	try:
+		importer = Importer(point=point)
+		filePath = importer.saveJson()
+		print(f"Imported for {point}")
+	except Exception as e:
+		print(f"error: {e}")

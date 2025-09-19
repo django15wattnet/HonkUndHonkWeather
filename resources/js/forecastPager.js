@@ -50,6 +50,14 @@ class ForecastPager
 		
 		this.#btnBack.style.visibility = 'hidden'
 		this.#listOuter.querySelector('[data-idx]').style.display='table'
+		
+		document
+			.querySelectorAll('.honkWeatherOuter .forecastDaySliderOuter div')
+			.forEach(
+				(elem) => {
+					elem.addEventListener('click', this.#onClickDay.bind(this))
+				}
+			)
 	}
 	
 	
@@ -59,6 +67,8 @@ class ForecastPager
 		if (true === ev.target.classList.contains('next')) {
 			add = 1;
 		}
+		
+		console.log(this.#idxVisible, add)
 		
 		this.#idxVisible += add
 		
@@ -81,7 +91,38 @@ class ForecastPager
 			this.#btnBack.style.visibility = 'hidden'
 		}
 		
-		if (this.#idxVisible < this.#idxMax) 		{
+		if (this.#idxVisible < this.#idxMax) {
+			this.#btnNext.style.visibility = 'visible'
+		} else {
+			this.#btnNext.style.visibility = 'hidden'
+		}
+	}
+	
+	
+	#onClickDay(ev)
+	{
+		this.#idxVisible = parseInt(ev.target.getAttribute('data-show-idx'))
+		
+		this
+			.#listOuter
+			.querySelectorAll('[data-idx]')
+			.forEach(
+				(elem) => {
+					if (this.#idxVisible == elem.getAttribute('data-idx')) {
+						elem.style.display = 'table'
+					} else {
+						elem.style.display = 'none'
+					}
+				}
+			)
+		
+		if (this.#idxVisible > 0) {
+			this.#btnBack.style.visibility = 'visible'
+		} else {
+			this.#btnBack.style.visibility = 'hidden'
+		}
+		
+		if (this.#idxVisible < this.#idxMax) {
 			this.#btnNext.style.visibility = 'visible'
 		} else {
 			this.#btnNext.style.visibility = 'hidden'

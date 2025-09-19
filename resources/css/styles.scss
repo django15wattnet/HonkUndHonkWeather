@@ -1,12 +1,47 @@
 .honkWeatherOuter {
 	
-	h2 {
+	h3 {
+		text-align: center;
+		font-size: 2rem;
+		font-weight: bolder;
 		
+		a {
+			padding: 0 1rem 0 1rem;
+			
+			&:hover {
+				text-decoration: underline;
+				background-color: #f0f0f0;
+			}
+		}
+	}
+	
+	.forecastDaySliderOuter {
+		display: flex;
+		flex-direction: row;
+		column-gap: 0.5rem;
+		height: 3.0rem;
+		overflow-x: scroll;
+		margin-bottom: 0.5rem;
+		
+		div {
+			padding: 0.5rem;
+			flex-shrink: 0;
+			flex-grow: 1;
+			text-align: center;
+			
+			border: 1px solid #0f0f0f;
+			
+			&:hover {
+				cursor: pointer;
+				background-color: #f0f0f0;
+			}
+		}
 	}
 	
 	.content {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
 		
 		.direction {
 			font-size: 8rem;
@@ -31,9 +66,9 @@
 			.forecastOuter {
 				box-shadow: 6px 6px 15px 1px #000000;
 				padding: 0.5rem;
+				border-radius: 0.25rem;
 				
 				div {
-					// text-align: center;
 					
 					img {
 						vertical-align: middle;
