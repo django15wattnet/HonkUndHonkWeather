@@ -1,6 +1,6 @@
-=== HonkAndHonkWeather ===
+=== HonkUndHonkWeather ===
 
-Contributors: Honk & Honk
+Contributors: honkundhonk
 
 Donate link: https://honkundhonk.de/
 
@@ -8,13 +8,13 @@ Tags: meteorology, weather, forecast
 
 Requires at least: 6.8
 
-Tested up to: 6.8.2
+Tested up to: 6.8
 
-Stable tag: 6.8
+Stable tag: 0.0.1
 
-License: unlicense
+License: GNU General Public License 3
 
-License URI: https://unlicense.org
+License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 Reading and displaying open-meteo.com weather forecast for locations of your choise.
 

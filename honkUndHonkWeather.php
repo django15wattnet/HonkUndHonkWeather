@@ -5,16 +5,12 @@
  * Description:       OpenMeteo weather forecast as a Wordpress plugin
  * Version:           0.0.1
  * Author:            https://github.com/django15wattnet
- * Author URI:        https://github.com/django15wattnet
- * License:           unlicense
- * License URI:       https://unlicense.org
- * Text Domain:       honkandhonkweather
+ * Author URI:        https://honkundhonk.de
+ * License:           GNU General Public License 3
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain:       honkundhonkweather
  */
-/*
- * Copernicus, Sentinel Satellitenbilder
- * https://github.com/open-meteo/open-meteo/issues/789
- * opendatasoft.com, distancematrix.ai PLZ => Geolocation
- */
+
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -64,7 +60,7 @@ function deactivate()
 
 function honkUndHonkWeatherReadForecastsCronExec(): void
 {
-    $pythonInterpreter = `which python3`;
+    $pythonInterpreter = shell_exec("which python3");
     if (true === in_array($pythonInterpreter, [false, null], true)) {
         error_log("honkUndHonkWeatherReadForecastsCronExec(): Can't find python3 interpreter");
         return;
@@ -78,7 +74,6 @@ function honkUndHonkWeatherReadForecastsCronExec(): void
     $res = shell_exec("{$pythonInterpreter} {$pathToScript}");
     if (true === in_array($res, [false, null], true)) {
         error_log("honkUndHonkWeatherReadForecastsCronExec(): Can't run importer");
-print('WTF');
         return;
     }
     

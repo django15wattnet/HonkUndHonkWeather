@@ -15,9 +15,12 @@ from open-meteo.com API.
 4. Unix-like operating system (Linux, MacOs, BSD, ...)
 
 ## Installation
-1. Download the plugin [zip file](https://github.com/django15wattnet/HonkUndHonkWeather/blob/main/honkUndHonkWeather.zip)
+1. Download the plugin [zip file](https://github.com/django15wattnet/HonkUndHonkWeather/blob/main/honkUndHonkWeather.zip?raw=true)
 2. unzip it to your Wordpress plugins directory (/wp-content/plugins)
 3. Activate the plugin through the 'Plugins' menu in WordPress
+
+Or clone the [github repro](https://github.com/django15wattnet/HonkUndHonkWeather/tree/main)
+to your Wordpress plugins directory
 
 ## Usage
 Add a shortcode like this example to your post or page:

@@ -2,7 +2,7 @@
 
 class WmoCode
 {
-    static public string $jsonData = <<<'JSON_DATA'
+    static public string $jsonData = '
 {
 	"0":{
 		"day":{
@@ -285,7 +285,7 @@ class WmoCode
 		}
 	}
 }
-JSON_DATA;
+';
     readonly public stdClass $data;
     
     
