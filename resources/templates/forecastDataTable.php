@@ -4,7 +4,7 @@
 	style="display: none"
 >
 	<div>
-		<?php print($this->dt->format('l, j. F Y H:i')); ?>
+		<?php honkUndHonkWeatherPrDateLong($this->dt); ?>
 	</div>
 	<div>
 		<?php print($this->forecastData->temperature_2m); ?>
@@ -13,41 +13,20 @@
 			src="<?php print($this->wmoCode->getUrl($this->forecastData)); ?>" 
 			alt="wmo code <?php print($this->forecastData->weather_code);?>"
 		>
-		<?php print($this->wmoCode->getDescription($this->forecastData)); ?>
+		<?php _e($this->wmoCode->getDescription($this->forecastData), 'honkUndHonkWeather'); ?>
 	</div>
 	<div>
-		Regenwahrscheinlichkeit:
+		<?php _e('Regenwahrscheinlichkeit', 'honkUndHonkWeather'); ?>:
 		<?php print($this->forecastData->precipitation_probability)?> %
 	</div>
 	<div>
-		Luftdruck:
+		<?php _e('Luftdruck', 'honkUndHonkWeather'); ?>:
 		<?php print($this->forecastData->surface_pressure); ?>
 		<?php print($this->forecastData->units->surface_pressure);?>
 	</div>
 	<div>
-		Luftfeuchtigkeit:
+		<?php _e('Luftfeuchtigkeit', 'honkUndHonkWeather'); ?>:
 		<?php print($this->forecastData->relative_humidity_2m); ?><?php print($this->forecastData->units->relative_humidity_2m);?>
 	</div>
-
-
-	<?php /*
-    <table>
-    	<tbody>
-    		<?php foreach ($this->forecastData->getPropertiesNames() as $prop) { ?>
-    			<tr>
-    				<th><?php print($prop); ?></th>
-    				<td><?php print($this->forecastData->$prop); ?></td>
-    				<td><?php
-        					try {
-        					   print($this->forecastData->units->$prop);
-        					} catch (Exception) {
-        					    ;
-        					}
-    				   ?></td>
-    			</tr>
-    			<?php } ?>
-    	</tbody>
-    </table>
-    */ ?>
 </div>
 	

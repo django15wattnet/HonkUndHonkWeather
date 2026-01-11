@@ -8,14 +8,14 @@
  * Author URI:        https://honkundhonk.de
  * License:           GNU General Public License 3
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:       honkundhonkweather
+ * Text Domain:       honkUndHonkWeather
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-require_once 'pp.php';
+require_once 'templateFunctions.php';
 require_once 'Renderer.php';
 require_once 'ForecastRenderer.php';
 require_once 'ForecastData.php';
@@ -29,7 +29,6 @@ add_shortcode('honkUndHonkWeather', 'honkUndHonkWeatherShortcodeHandler');
 
 function honkUndHonkWeatherShortcodeHandler(array $params)
 {
-    // setlocale(LC_ALL, 'de_DE.UTF-8');
     try {
         return (new ShortCode($params))->value;        
     } catch (Exception $e) {
@@ -40,24 +39,6 @@ function honkUndHonkWeatherShortcodeHandler(array $params)
     }
 }
 
-
-// Add wp cron to read the weather forecasts houly
-add_action(
-    'HonkUndHonkWeatherReadForecastsCron',
-    'honkUndHonkWeatherReadForecastsCronExec'
-);
-
-function activate()
-{
-    error_log("honkUndHonkWeatherReadForecasts activate");
-    wp_schedule_event(time(), 'hourly', 'HonkUndHonkWeatherReadForecastsCron');
-}
-
-function deactivate()
-{
-    error_log("honkUndHonkWeatherReadForecasts deactivate");
-    wp_clear_scheduled_hook('HonkUndHonkWeatherReadForecastsCron');
-}
 
 function honkUndHonkWeatherReadForecastsCronExec(): void
 {
@@ -81,4 +62,38 @@ function honkUndHonkWeatherReadForecastsCronExec(): void
     error_log("honkUndHonkWeatherReadForecastsCronExec(): Success 🌞");
     
     return;
+}
+
+
+// Add wp cron to read the weather forecasts hourly
+add_action(
+    'HonkUndHonkWeatherReadForecastsCron',
+    'honkUndHonkWeatherReadForecastsCronExec'
+);
+
+
+// Add the plugins translations
+add_action(
+    'plugins_loaded',
+    function() 
+    {
+        load_plugin_textdomain(
+            'honkUndHonkWeather',
+            false,
+            basename(dirname( __FILE__ )) . '/resources/lang'
+        );
+    }
+);
+
+
+function activate()
+{
+    error_log("honkUndHonkWeatherReadForecasts activate");
+    wp_schedule_event(time(), 'hourly', 'HonkUndHonkWeatherReadForecastsCron');
+}
+
+function deactivate()
+{
+    error_log("honkUndHonkWeatherReadForecasts deactivate");
+    wp_clear_scheduled_hook('HonkUndHonkWeatherReadForecastsCron');
 }
