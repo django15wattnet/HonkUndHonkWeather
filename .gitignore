@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+# Byte-compiled / optim zed / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
@@ -50,10 +50,6 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
-
-# Translations
-*.mo
-*.pot
 
 # Django stuff:
 *.log
