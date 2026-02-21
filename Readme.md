@@ -37,3 +37,4 @@ ___
 - Localisation
 - Styling options
 - Use [Erik Flowers Weather Icons](https://erikflowers.github.io/weather-icons/)
+- Change importer to PHP

@@ -1,0 +1,134 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE@formal\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.8\n"
+
+#. Author: Herr Honk <t@honkundhonk.de>
+msgid "Sunny"
+msgstr "Sonnig"
+
+msgid "Clear"
+msgstr "Klar"
+
+msgid "Mainly Sunny"
+msgstr "Hauptsächlich sonnig"
+
+msgid "Mainly Clear"
+msgstr "Hauptsächlich klar"
+
+msgid "Partly Cloudy"
+msgstr "Teilweise bewölkt"
+
+msgid "Cloudy"
+msgstr "Bewölkt"
+
+msgid "Foggy"
+msgstr "Neblig"
+
+msgid "Rime Fog"
+msgstr "Nebel mit Raureif"
+
+msgid "Light Drizzle"
+msgstr "Leichter Nieselregen"
+
+msgid "Drizzle"
+msgstr "Nieselregen"
+
+msgid "Heavy Drizzle"
+msgstr "Starker Nieselregen"
+
+msgid "Light Freezing Drizzle"
+msgstr "Leichter gefrierender Nieselregen"
+
+msgid "Freezing Drizzle"
+msgstr "Gefrierender Nieselregen"
+
+msgid "Light Rain"
+msgstr "Leichter Regen"
+
+msgid "Rain"
+msgstr "Regen"
+
+msgid "Heavy Rain"
+msgstr "Starker Regen"
+
+msgid "Light Freezing Rain"
+msgstr "Leichter Eisregen"
+
+msgid "Freezing Rain"
+msgstr "Eisregen"
+
+msgid "Light Snow"
+msgstr "Leichter Schnee"
+
+msgid "Snow"
+msgstr "Schnee"
+
+msgid "Heavy Snow"
+msgstr "Starker Schneefall"
+
+msgid "Snow Grains"
+msgstr "Schneekörner"
+
+msgid "Light Showers"
+msgstr "Leichte Schauer"
+
+msgid "Showers"
+msgstr "Schauer"
+
+msgid "Heavy Showers"
+msgstr "Starker Schauer"
+
+msgid "Light Snow Showers"
+msgstr "Leichte Schneeschauer"
+
+msgid "Snow Showers"
+msgstr "Schneeschauer"
+
+msgid "Thunderstorm"
+msgstr "Gewitter"
+
+msgid "Light Thunderstorms With Hail"
+msgstr "Leichte Gewitter mit Hagel"
+
+msgid "Thunderstorms With Hail"
+msgstr "Gewitter mit Hagel"
+
+msgid "Regenwahrscheinlichkeit"
+msgstr "Regenwahrscheinlichkeit"
+
+msgid "Luftdruck"
+msgstr "Luftdruck"
+
+msgid "Luftfeuchtigkeit"
+msgstr "Luftfeuchtigkeit"
+
+msgid "Sun"
+msgstr "So."
+
+msgid "Mon"
+msgstr "Mo."
+
+msgid "Tue"
+msgstr "Di."
+
+msgid "Wed"
+msgstr "Mi."
+
+msgid "Thu"
+msgstr "Do."
+
+msgid "Fri"
+msgstr "Fr."
+
+msgid "Sat"
+msgstr "Sa."
