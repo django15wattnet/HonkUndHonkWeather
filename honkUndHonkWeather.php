@@ -1,4 +1,6 @@
 <?php
+use HonkUndHonkWeather\Importer\Importer;
+
 /**
  * Plugin Name:       HonkUndHonkWeather
  * Plugin URI:        https://github.com/django15wattnet/HonkUndHonkWeather
@@ -23,7 +25,9 @@ require_once 'ForecastDaySlider.php';
 require_once 'ShortCode.php';
 require_once 'Units.php';
 require_once 'WmoCode.php';
-
+require_once 'Importer/Point.php';
+require_once 'Importer/Importer.php';
+require_once 'Importer/DirectoryToPointList.php';
 
 add_shortcode('honkUndHonkWeather', 'honkUndHonkWeatherShortcodeHandler');
 
@@ -42,34 +46,45 @@ function honkUndHonkWeatherShortcodeHandler(array $params)
 
 function honkUndHonkWeatherReadForecastsCronExec(): void
 {
-    $pythonInterpreter = shell_exec("which python3");
-    if (true === in_array($pythonInterpreter, [false, null], true)) {
-        error_log("honkUndHonkWeatherReadForecastsCronExec(): Can't find python3 interpreter");
-        return;
-    }
-    
-    $pythonInterpreter = trim($pythonInterpreter, "\n\r ");
-    
-    $pathToScript = dirname(__FILE__) . '/Importer/importer.py';
-    
-    error_log("{$pythonInterpreter} {$pathToScript}");
-    $res = shell_exec("{$pythonInterpreter} {$pathToScript}");
-    if (true === in_array($res, [false, null], true)) {
-        error_log("honkUndHonkWeatherReadForecastsCronExec(): Can't run importer");
-        return;
-    }
-    
+    foreach (new Importer/DirectoryToPointList() as $point) {
+        try {
+            (new Importer($point))->writeForecastData();
+        } catch (Exception $e) {
+            error_log(
+                sprintf(
+                    'Error importing forecast for point %f, %f: %s',
+                    $point->getLon(),
+                    $point->getLat(),
+                    $e->getMessage()
+                )
+            );
+        }
+    }                                                                
+
     error_log("honkUndHonkWeatherReadForecastsCronExec(): Success 🌞");
     
     return;
 }
 
+function honkUndHonkWeatherReadForecastsCron() {
+    honkUndHonkWeatherReadForecastsCronExec();
+}
+
 
 // Add wp cron to read the weather forecasts hourly
 add_action(
-    'HonkUndHonkWeatherReadForecastsCron',
-    'honkUndHonkWeatherReadForecastsCronExec'
+    'init',
+    'honkUndHonkWeatherCreateCron'
 );
+
+function honkUndHonkWeatherCreateCron()
+{
+    if (! wp_next_scheduled('honkUndHonkWeatherReadForecastsCron')) {
+        error_log("honkUndHonkWeatherCreateCron(): Schedule cron");
+        wp_schedule_event(time(), '5min', 'honkUndHonkWeatherReadForecastsCron');
+    }
+}
+
 
 
 // Add the plugins translations
@@ -88,12 +103,13 @@ add_action(
 
 function activate()
 {
+    die('wTf');
     error_log("honkUndHonkWeatherReadForecasts activate");
-    wp_schedule_event(time(), 'hourly', 'HonkUndHonkWeatherReadForecastsCron');
+    wp_schedule_event(time(), '5min', 'honkUndHonkWeatherReadForecastsCron');
 }
 
 function deactivate()
 {
     error_log("honkUndHonkWeatherReadForecasts deactivate");
-    wp_clear_scheduled_hook('HonkUndHonkWeatherReadForecastsCron');
+    wp_clear_scheduled_hook('honkUndHonkWeatherReadForecastsCron');
 }

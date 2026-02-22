@@ -1,9 +1,10 @@
 <?php
-namespace Importer;
+namespace HonkUndHonkWeather\Importer;
 
 use DateTimeZone;
 use DateTime;
 use stdClass;
+use Exception;
 
 /**
  * Class to import the open meteo forecast for a location (Point)
@@ -57,6 +58,7 @@ class Importer
                 'lat'                       => $this->point->getLat(),
                 'lon'                       => $this->point->getLon(),
                 'time'                      => (new DateTime($time, $tz))->format('c'),
+                'tz'                        => $openMeteoData['timezone'],
                 'temperature_2m'            => $openMeteoData['hourly']['temperature_2m'][$idx],
                 'relative_humidity_2m'      => $openMeteoData['hourly']['relative_humidity_2m'][$idx],
                 'cloud_cover'               => $openMeteoData['hourly']['cloud_cover'][$idx],
@@ -73,8 +75,21 @@ class Importer
             'units'     => $objUnits,
             'forecasts' => $arrWeatherForecasts
         ];
+    }
+    
+    
+    public function writeForecastData(): void
+    {
+        $nameDataFile = $this->dirCache . '/' . (string)$this->point;
         
-        print_r($this->forecastData);
+        $res = file_put_contents(
+            $nameDataFile, 
+            json_encode($this->forecastData, JSON_PRETTY_PRINT)
+        );
+        
+        if (false === $res) {
+            throw new Exception("Could not write forecast data to file: {$nameDataFile}");
+        }
     }
     
     

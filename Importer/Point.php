@@ -1,5 +1,5 @@
 <?php
-namespace Importer;
+namespace HonkUndHonkWeather\Importer;
 
 /**
  * A point, a geolocation to import the open meteo forecasts
@@ -32,6 +32,11 @@ class Point
    
    public function __toString(): string
    {
-       return sprintf('lon: %f, lat: %f', $this->lon, $this->lat);
+       return sprintf(
+           '%s_%s', 
+           rtrim(sprintf('%f', $this->lat), '0'), 
+           rtrim(sprintf('%f', $this->lon), '0')
+       );
    }
+   
 }

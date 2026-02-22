@@ -3,17 +3,19 @@ require_once __DIR__ . '/Importer.php';
 require_once __DIR__ . '/Point.php';
 require_once __DIR__ . '/DirectoryToPointList.php';
 
-use Importer\Importer;
-use Importer\DirectoryToPointList;
+use HonkUndHonkWeather\Importer\Importer;
+use HonkUndHonkWeather\Importer\DirectoryToPointList;
 
-$dtpl = new DirectoryToPointList();
-foreach ($dtpl as $point) {
-    $imp = new Importer($point);
-    print_r($imp);
+foreach (new DirectoryToPointList() as $point) {
+    try {
+        (new Importer($point))->writeForecastData();
+    } catch (Exception $e) {
+        printf(
+            'Error importing forecast for point %f, %f: %s',
+            $point->getLon(),
+            $point->getLat(),
+            $e->getMessage()
+        );
+    }
+   
 }
-
-/*
-$imp = new Importer(
-    new Point(7.625917, 51.962645)
-);
-*/

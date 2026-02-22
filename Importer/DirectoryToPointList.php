@@ -1,5 +1,5 @@
 <?php
-namespace Importer;
+namespace HonkUndHonkWeather\Importer;
 
 use Exception;
 use Iterator;
