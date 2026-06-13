@@ -132,3 +132,6 @@ msgstr "Fr."
 
 msgid "Sat"
 msgstr "Sa."
+
+msgid "AdminMenueTitle"
+msgstr "HonkUndHonkWetter"

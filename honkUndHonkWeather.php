@@ -28,6 +28,7 @@ require_once 'WmoCode.php';
 require_once 'Importer/Point.php';
 require_once 'Importer/Importer.php';
 require_once 'Importer/DirectoryToPointList.php';
+//require_once 'Admin.php';
 
 add_shortcode('honkUndHonkWeather', 'honkUndHonkWeatherShortcodeHandler');
 
